@@ -8,7 +8,7 @@ export function IncenseCard(props:IncenseCardProps) {
     return (
         
         <article>
-            <img src={props.incense.photo} alt='Изображение коробки благовоний Огнецвет Дивья'/>
+            <img src={props.incense.photo} alt={`Благовония ${props.incense.brand} ${props.incense.name}`}/>
             <h2>{props.incense.name}</h2>
             <p>{props.incense.brand}</p>
             <p>{props.incense.series}</p>
