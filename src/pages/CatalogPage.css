@@ -1,5 +1,5 @@
 .catalog {
-    padding: 20px;
+    padding: 0 20px;
 }
 
 .catalog__intro {
@@ -14,4 +14,10 @@
 }
 .catalog__subtitle {
     line-height: 1;
+}
+
+.catalog__list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px
 }
