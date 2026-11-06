@@ -1,0 +1,24 @@
+.header {
+    background: var(--bg-header);
+    border-radius: 25px;
+    padding: 10px 30px;
+}
+
+.header__nav {
+    display: flex;
+    gap: 30px;
+}
+
+.header__link {
+    padding: 10px;
+    border-radius: 25px;
+    border: 2px solid transparent;
+}
+
+.header__link:hover {
+    border: 2px solid var(--border);
+}
+
+.header__link_active {
+    background: var(--accent);
+}
