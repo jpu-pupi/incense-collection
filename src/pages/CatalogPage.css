@@ -1,0 +1,17 @@
+.catalog {
+    padding: 20px;
+}
+
+.catalog__intro {
+    padding: 0 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.catalog__title {
+    line-height: 0.8;
+}
+.catalog__subtitle {
+    line-height: 1;
+}

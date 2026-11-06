@@ -24,7 +24,6 @@
 
 :root {
   --text: #6d2428;
-  --text-h: #6d2428;
   --bg: #fdefe6;
   --border: #ffd1dc;
   --accent: #f66b26;
@@ -47,7 +46,7 @@
   margin: 0 auto;
 }
 
-body {
+* {
   margin: 0;
 }
 
@@ -55,17 +54,15 @@ h1,
 h2 {
   font-family: var(--heading);
   font-weight: 400;
-  color: var(--text-h);
+  color: var(--accent);
 }
 
 h1 {
   font-size: 56px;
-  margin: 32px 0;
   
 }
 h2 {
   font-size: 24px;
-  margin: 0 0 8px;
 }
 p {
   margin: 0;
