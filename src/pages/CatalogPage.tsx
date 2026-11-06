@@ -1,5 +1,6 @@
 import "./CatalogPage.css"
 
+import { SearchField } from "../components/SearchField";
 import { IncenseCard } from "../components/IncenseCard";
 import { incenses } from "../data/incenses";
 
@@ -12,6 +13,7 @@ export default function CatalogPage() {
           Единая библиотека - добавляй новые <br/> экземпляры в свою коллекцию.
         </p>
       </section>
+      <SearchField/>
       <section className="catalog__list">
       {incenses.map((item) => {
         return <IncenseCard incense={item} key={item.id}></IncenseCard>;

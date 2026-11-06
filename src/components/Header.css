@@ -17,7 +17,7 @@
 }
 
 .header__link:hover {
-    border: 2px solid var(--border);
+    border: 2px solid var(--accent);
 }
 
 .header__link_active {

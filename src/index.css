@@ -28,20 +28,20 @@
   --border: #ffd1dc;
   --accent: #f66b26;
   --bg-header: #fecbd2;
- 
+
   --sans: 'Golos-Text', sans-serif;
-  --heading:  'YesevaOne', serif;
- 
+  --heading: 'YesevaOne', serif;
 
   font: 18px/145% var(--sans);
   color: var(--text);
   background: var(--bg);
-  }
-  
+}
+
 * {
   margin: 0;
 }
-h1{
+
+h1 {
   font-family: var(--heading);
   font-weight: 400;
   font-size: 56px;
@@ -49,3 +49,18 @@ h1{
   margin: 0;
 }
 
+input {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  color: inherit;
+}
