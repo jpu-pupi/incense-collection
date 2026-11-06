@@ -29,8 +29,8 @@
   --accent: #f66b26;
   --bg-header: #fecbd2;
  
-  --sans: 'Golos-Text', Roboto, serif;
-  --heading:  'YesevaOne', Roboto, sans-serif;
+  --sans: 'Golos-Text', sans-serif;
+  --heading:  'YesevaOne', serif;
  
 
   font: 18px/145% var(--sans);
@@ -46,24 +46,12 @@
   margin: 0 auto;
 }
 
-* {
-  margin: 0;
-}
 
-h1,
-h2 {
+h1{
   font-family: var(--heading);
   font-weight: 400;
-  color: var(--accent);
-}
-
-h1 {
   font-size: 56px;
-  
-}
-h2 {
-  font-size: 24px;
-}
-p {
+  color: var(--accent);
   margin: 0;
 }
+

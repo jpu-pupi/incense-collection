@@ -3,7 +3,7 @@
 }
 
 .catalog__intro {
-    padding: 0 50px;
+    padding: 30px 50px;
     display: flex;
     flex-direction: column;
     gap: 20px;
