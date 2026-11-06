@@ -37,7 +37,10 @@
   color: var(--text);
   background: var(--bg);
   }
-
+  
+* {
+  margin: 0;
+}
 h1{
   font-family: var(--heading);
   font-weight: 400;

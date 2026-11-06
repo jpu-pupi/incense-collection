@@ -21,3 +21,13 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 20px
 }
+
+@media (max-width: 768px) {
+    .catalog__list {
+    grid-template-columns: 1fr;
+    }
+
+    .catalog__title {
+        font-size: 36px;
+    }
+}

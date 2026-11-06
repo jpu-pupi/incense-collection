@@ -6,6 +6,7 @@
 
 .header__nav {
     display: flex;
+    flex-wrap: wrap;
     gap: 30px;
 }
 
