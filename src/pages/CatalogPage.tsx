@@ -1,7 +1,6 @@
 import "./CatalogPage.css"
 
 import { SearchField } from "../components/SearchField";
-import { CatalogFilters } from "../components/CatalogFilters";
 import { IncenseCard } from "../components/IncenseCard";
 import { incenses } from "../data/incenses";
 
@@ -15,7 +14,6 @@ export default function CatalogPage() {
         </p>
       </section>
       <SearchField/>
-      <CatalogFilters count={incenses.length}/>
       <section className="catalog__list">
       {incenses.map((item) => {
         return <IncenseCard incense={item} key={item.id}></IncenseCard>;

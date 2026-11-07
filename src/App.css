@@ -1,0 +1,5 @@
+.background {
+    background: var(--bg-accent);
+    border-radius: 25px;
+    margin: 36px;
+}

@@ -3,14 +3,8 @@ import './SearchField.css'
 export function SearchField() {
   return (
     <form className="search-field">
-      <input
-        className="search-field__input"
-        type="search"
-        aria-label="Поиск по каталогу"
-        placeholder="Поиск по названию, бренду, стране, аромату..."
-      />
-      <button className="search-field__button" type="submit" aria-label="Найти">
-        <svg
+      <div className='search-field__control'>
+      <svg
           className="search-field__icon"
           aria-hidden="true"
           fill="currentColor"
@@ -28,7 +22,14 @@ export function SearchField() {
             </g>
           </g>
         </svg>
-      </button>
+      <input
+        className="search-field__input"
+        type="search"
+        aria-label="Поиск по каталогу"
+        placeholder="Поиск по названию, бренду, стране, аромату..."
+      />
+      </div>
+      <button className="search-field__button" type="submit" aria-label="Найти">Найти</button>
     </form>
   );
 }

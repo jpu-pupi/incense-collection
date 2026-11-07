@@ -1,11 +1,14 @@
+import './App.css'
 import { Header } from "./components/Header";
 import CatalogPage from "./pages/CatalogPage";
 
 function App() {
   return (
     <>
+      <div className="background">
       <Header />
       <CatalogPage />
+      </div>
     </>
   );
 }

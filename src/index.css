@@ -25,9 +25,9 @@
 :root {
   --text: #6d2428;
   --bg: #fdefe6;
-  --border: #ffd1dc;
+  --border: #fecbd2;
   --accent: #f66b26;
-  --bg-header: #fecbd2;
+  --bg-accent: #fecbd2;
 
   --sans: 'Golos-Text', sans-serif;
   --heading: 'YesevaOne', serif;
