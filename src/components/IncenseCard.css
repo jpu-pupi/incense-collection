@@ -7,12 +7,20 @@
     border-radius: 25px;
     padding: 20px;
 } 
+
 .incense-card__image {
     width: 150px;
     height: 150px;
     object-fit: contain;
 }
 
+.incense-card__placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+}
 .incense-card__title {
     font-family: var(--sans);
     font-weight: 500;

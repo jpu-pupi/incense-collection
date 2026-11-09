@@ -15,7 +15,7 @@ export function IncenseCard(props: IncenseCardProps) {
           alt={`Благовония ${props.incense.brand} ${props.incense.name}`}
         />
       ) : (
-        <div>Нет фото</div>
+        <div className="incense-card__placeholder">Нет фото</div>
       )}
 
       <div className="incense-card__info">
