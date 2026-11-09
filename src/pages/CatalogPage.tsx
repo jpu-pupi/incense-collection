@@ -1,6 +1,6 @@
 import "./CatalogPage.css"
 
-import { SearchField } from "../components/SearchField";
+import { SearchField } from "../components/ui/SearchField";
 import { IncenseCard } from "../components/IncenseCard";
 import { incenses } from "../data/incenses";
 

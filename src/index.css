@@ -32,13 +32,18 @@
   --sans: 'Golos-Text', sans-serif;
   --heading: 'YesevaOne', serif;
 
-  font: 18px/145% var(--sans);
+  font: 18px/100% var(--sans);
   color: var(--text);
   background: var(--bg);
 }
 
 * {
   margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit
 }
 
 h1 {

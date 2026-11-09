@@ -1,5 +1,5 @@
 import "./CatalogFilters.css";
-import { SelectField } from "./SelectField";
+import { SelectField } from "./ui/SelectField";
 type CatalogFilterProps = {
   count: number;
 };
