@@ -1,18 +1,62 @@
 import incensePhoto from'../assets/Ognecvet-divya.jpg'
 import SvezhiyLesPhoto from '../assets/Ognecvet-Svezhiy-Les.jpg'
+import Water from '../assets/Water-Nippon-Kodo.jpg'
+import { type Incense } from '../types/incense'
 
-export const incenses = [
+export const incenses:Incense[] = [
     { id: '0001',
       name: 'Дивья',
       brand: 'Огнецвет',
       series: 'Православные',
+      country:'Россия',
+      baseType: 'coreless',
+      incenseType: 'coal',
+      form: 'stick',
       photo: incensePhoto,
+      aromas:['олибанум', 'копал', 'можжевельник','березовый уголь'],
     },
 
     { id: '0002',
       name: 'Свежий лес',
       brand: 'Огнецвет',
       series: 'Великолепные',
+      country:'Россия',
+      baseType: 'coreless',
+      incenseType: 'tibetan',
+      form: 'stick',
       photo: SvezhiyLesPhoto,
-    }
+      aromas:['можжевельник', 'лемонграсс', 'лиственничная смола'],
+    },
+
+    { id: '0003',
+      name: 'Nag Champa',
+      brand: 'Satya Bangalore',
+      country:'Индия',
+      baseType: 'core',
+      incenseType: 'masala',
+      form: 'stick',
+      aromas:['сладкий'],
+    },
+
+    { id: '0004',
+      name: 'Natural',
+      brand: 'Satya Mumbai',
+      country:'Индия',
+      baseType: 'core',
+      incenseType: 'masala',
+      form: 'stick',
+      aromas:['сладкий'],
+    },
+    { id: '0005',
+      name: 'Water',
+      brand: 'Nippon Kodo',
+      series: 'Elemense',
+      country:'Япония',
+      baseType: 'coreless',
+      incenseType: 'other',
+      form: 'stick',
+      photo: Water,
+      aromas:['мускус', 'свежий'],
+    },
+    
 ]
