@@ -1,25 +1,18 @@
 import "./CatalogFilters.css";
-import { SelectField } from "./ui/SelectField";
-type CatalogFilterProps = {
-  count: number;
+type CatalogFiltersProps = {
+  isOpen: boolean;
+  onClick: () => void;
 };
-export function CatalogFilters(props: CatalogFilterProps) {
-  const countryOptions = [
-    { value: "", label: "Страна" },
-    { value: "russia", label: "Россия" },
-    { value: "japan", label: "Япония" },
-    { value: "india", label: "Индия" },
-  ];
 
-  const options = {
-    id: "country-select",
-    name: "country",
-    label: "Выбрать страну",
-    options: countryOptions,
-  };
+export function CatalogFilters(props: CatalogFiltersProps) {
   return (
     <div className="catalog-filters">
-      <button className="catalog-filters__toggle" type="button">
+      <button
+        className="catalog-filters__toggle"
+        type="button"
+        aria-expanded={props.isOpen}
+        onClick={props.onClick}
+      >
         <svg
           className="catalog-filters__icon"
           aria-hidden="true"
@@ -40,12 +33,9 @@ export function CatalogFilters(props: CatalogFilterProps) {
         </svg>
         Фильтры
       </button>
-      <div className="catalog-filters__quick">
-        <SelectField {...options} />
-      </div>
-      <span className="catalog-filters__count">
-        Найдено: <span className="catalog-filters__counter">{props.count}</span>
-      </span>
+      {props.isOpen && (
+        <div className="catalog-filters__panel"> Здесь будут фильтры</div>
+      )}
     </div>
   );
 }

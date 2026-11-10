@@ -22,11 +22,4 @@
     height: 20px;
 }
 
-.catalog-filters__count{
-    margin-left: auto;
-}
-.catalog-filters__counter {
-    color: var(--accent);
-    font-weight: 500;
-    font-size: 25px;
-}
+

@@ -19,6 +19,11 @@
     line-height: 1;
 }
 
+.catalog__filters {
+    display: flex;
+    gap: 20px;
+}
+
 .catalog__list{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
