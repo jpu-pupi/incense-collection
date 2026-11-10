@@ -32,6 +32,23 @@
 
 }
 
+.catalog__filters_toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: var(--border);
+    border: 2px solid var(--border);
+    border-radius: 25px;
+    font-size: 18px;
+}
+
+.catalog__filters_icon {
+    width: 20px;
+    height: 20px;
+}
+
+
 @media (max-width: 768px) {
     .catalog__list {
     grid-template-columns: 1fr;
@@ -41,3 +58,4 @@
         font-size: 36px;
     }
 }
+

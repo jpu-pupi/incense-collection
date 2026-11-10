@@ -1,0 +1,47 @@
+.catalog-filters__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    padding: 16px;
+    border-radius: 25px;
+    font-size: 18px;
+    margin-top: 18px;
+}
+
+.catalog-filters__header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.catalog-filters__clear {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+}
+
+.catalog-filters__clear:focus{
+    outline: none;
+    border: 2px solid var(--text);
+    border-radius: 25px;
+    padding: 3px;
+}
+
+.catalog-filters__icon-clear {
+    width: 11px;
+    height: 11px;
+}
+
+.catalog-filters__fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: none;
+}
+
+.catalog-filters__legend {
+    font-weight: 500;
+    padding-bottom: 8px;
+}
