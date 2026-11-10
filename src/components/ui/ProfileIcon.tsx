@@ -6,6 +6,7 @@ export function ProfileIcon(prop:Props) {
   return(
   <svg
     className={prop.className}
+    aria-hidden="true"
     viewBox="0 0 24 24"
     fill="none"
   >

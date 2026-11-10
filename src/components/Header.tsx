@@ -28,7 +28,7 @@ export function Header() {
         </NavLink>
       </nav>
       <Link to={"/profile"}>
-        <ProfileIcon className="header__profile_icon"></ProfileIcon>
+        <ProfileIcon className="header__profile-icon"></ProfileIcon>
       </Link>
     </header>
   );
