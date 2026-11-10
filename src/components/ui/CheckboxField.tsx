@@ -1,9 +1,20 @@
 import "./CheckboxField.css";
 
-export function CheckboxField() {
+type CheckboxFieldProps = {
+    label: string,
+    value: string,
+    checked: boolean,
+    onChange: (checked:boolean) => void,
+}
+
+export function CheckboxField(props:CheckboxFieldProps) {
   return (
     <label className="checkbox-field">
-      <input className="checkbox-field__input" type="checkbox" />
+      <input className="checkbox-field__input" type="checkbox" 
+      value={props.value}
+      checked={props.checked}
+      onChange={(event)=>{props.onChange(event.currentTarget.checked)}}
+      />
       <span className="checkbox-field__control">
       <svg
       className="checkbox-field__icon"
@@ -18,7 +29,7 @@ export function CheckboxField() {
           fill="currentColor"
         />
       </svg></span>
-      Россия
+      {props.label}
     </label>
   );
 }
