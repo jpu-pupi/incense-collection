@@ -10,6 +10,8 @@ import { useState } from "react";
 export default function CatalogPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const countriesSet = new Set<string>();
   incenses.forEach((item) => {
@@ -34,6 +36,21 @@ export default function CatalogPage() {
     return selectedCountries.includes(item.country);
   });
 
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const searchResult = filteredIncenses.filter((item) => {
+    if (!normalizedQuery) {
+      return true;
+    }
+    return (
+      item.name.trim().toLowerCase().includes(normalizedQuery) ||
+      item.country.trim().toLowerCase().includes(normalizedQuery) ||
+      item.brand.trim().toLowerCase().includes(normalizedQuery) ||
+      item.aromas.some((aroma) =>
+        aroma.trim().toLowerCase().includes(normalizedQuery),
+      )
+    );
+  });
+
   return (
     <main className="catalog">
       <section className="catalog__intro">
@@ -48,7 +65,6 @@ export default function CatalogPage() {
         <button
           className="catalog__filters-toggle"
           type="button"
-          aria-expanded={isOpen}
           onClick={() => setIsOpen((prev) => !prev)}
         >
           <svg
@@ -71,7 +87,13 @@ export default function CatalogPage() {
           </svg>
           Фильтры
         </button>
-        <SearchField />
+        <SearchField
+          value={searchInput}
+          onChange={setSearchInput}
+          onSubmit={() => {
+            setSearchQuery(searchInput);
+          }}
+        />
       </section>
       {isOpen && (
         <CatalogFiltersPanel
@@ -95,9 +117,15 @@ export default function CatalogPage() {
         })}
       </div>
       <section className="catalog__list">
-        {filteredIncenses.map((item) => {
-          return <IncenseCard incense={item} key={item.id}></IncenseCard>;
-        })}
+        {searchResult.length ? (
+          searchResult.map((item) => {
+            return <IncenseCard incense={item} key={item.id}></IncenseCard>;
+          })
+        ) : (
+          <p className="catalog__list-error">
+            Ничего не найдено. Попробуй изменить запрос или фильтры.
+          </p>
+        )}
       </section>
     </main>
   );
