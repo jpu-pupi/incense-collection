@@ -1,0 +1,28 @@
+.not-found-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    background: var(--bg);
+    border-radius: 25px;
+    border: 2px solid var(--border);
+    padding: 30px;
+}
+
+.not-found-page__image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+}
+
+.not-found-page__link{
+    background: var(--bg-accent);
+    border: 2px solid var(--border);
+    border-radius: 25px;
+    padding: 8px 16px;
+}
+
+.not-found-page__link:focus-visible{
+    outline: none;
+    border: 2px solid var(--text);
+}
