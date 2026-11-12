@@ -1,8 +1,20 @@
 import "./SearchField.css";
 
-export function SearchField() {
+type SearchFieldProps = {
+  value: string;
+  onChange: (value: string) => void;
+  onSubmit: () => void;
+};
+
+export function SearchField(props: SearchFieldProps) {
   return (
-    <form className="search-field">
+    <form
+      className="search-field"
+      onSubmit={(event) => {
+        event.preventDefault();
+        props.onSubmit();
+      }}
+    >
       <div className="search-field__control">
         <svg
           className="search-field__icon"
@@ -25,6 +37,10 @@ export function SearchField() {
         <input
           className="search-field__input"
           type="search"
+          value={props.value}
+          onChange={(event) => {
+            props.onChange(event.currentTarget.value);
+          }}
           aria-label="Поиск по каталогу"
           placeholder="Поиск по названию, бренду, стране, аромату..."
         />

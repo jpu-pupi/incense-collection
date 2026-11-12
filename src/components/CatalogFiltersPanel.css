@@ -34,6 +34,11 @@
     height: 11px;
 }
 
+.catalog-filters__fieldset-container {
+display: flex;
+gap: 36px;
+}
+
 .catalog-filters__fieldset {
     display: flex;
     flex-direction: column;

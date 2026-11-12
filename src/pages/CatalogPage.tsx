@@ -6,33 +6,72 @@ import { IncenseCard } from "../components/IncenseCard";
 import { incenses } from "../data/incenses";
 import { Tag } from "../components/ui/Tag";
 import { useState } from "react";
+import { useCatalogFilters } from "../hooks/useCatalogFilters";
 
 export default function CatalogPage() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const countriesSet = new Set<string>();
-  incenses.forEach((item) => {
-    countriesSet.add(item.country);
-  });
-  const countries = [...countriesSet];
+  const {
+    countries,
+    brands,
+    series,
+    selectedCountries,
+    selectedBrands,
+    selectedSeries,
+    handleCountryChange,
+    handleBrandChange,
+    handleSeriesChange,
+    seriesFilteredIncenses,
+    clearFilters,
+  } = useCatalogFilters(incenses);
 
-  function handleCountryChange(country: string, checked: boolean) {
-    if (checked) {
-      setSelectedCountries([...selectedCountries, country]);
-    } else {
-      setSelectedCountries(
-        selectedCountries.filter((item) => item !== country),
-      );
-    }
+  function normalizedSearchText(text: string) {
+    return text.trim().toLowerCase();
   }
+  const normalizedQuery = normalizedSearchText(searchQuery);
 
-  const filteredIncenses = incenses.filter((item) => {
-    if (selectedCountries.length === 0) {
+  const searchResult = seriesFilteredIncenses.filter((item) => {
+    if (!normalizedQuery) {
       return true;
     }
-    return selectedCountries.includes(item.country);
+    return (
+      normalizedSearchText(item.name).includes(normalizedQuery) ||
+      normalizedSearchText(item.country).includes(normalizedQuery) ||
+      normalizedSearchText(item.brand).includes(normalizedQuery) ||
+      (item.series&&normalizedSearchText(item.series).includes(normalizedQuery)) ||
+      item.aromas.some((aroma) =>
+        normalizedSearchText(aroma).includes(normalizedQuery),
+      )
+    );
   });
+
+  const countryTags = selectedCountries.map((item) => {
+    return {
+      key: "country-" + item,
+      label: item,
+      onRemove: () => handleCountryChange(item, false),
+    };
+  });
+
+  const brandsTags = selectedBrands.map((item) => {
+    return {
+      key: "brand-" + item,
+      label: item,
+      onRemove: () => handleBrandChange(item, false),
+    };
+  });
+
+  const seriesTags = selectedSeries.map((item) => {
+    return {
+      key: "series-" + item,
+      label: item,
+      onRemove: () => handleSeriesChange(item, false),
+    };
+  });
+
+  const tags = [...countryTags, ...brandsTags, ...seriesTags];
 
   return (
     <main className="catalog">
@@ -71,33 +110,45 @@ export default function CatalogPage() {
           </svg>
           Фильтры
         </button>
-        <SearchField />
+        <SearchField
+          value={searchInput}
+          onChange={setSearchInput}
+          onSubmit={() => {
+            setSearchQuery(searchInput);
+          }}
+        />
       </section>
       {isOpen && (
         <CatalogFiltersPanel
           countries={countries}
+          brands={brands}
+          series={series}
           selectedCountries={selectedCountries}
+          selectedBrands={selectedBrands}
+          selectedSeries={selectedSeries}
           onCountryChange={handleCountryChange}
-          onClear={() => setSelectedCountries([])}
+          onBrandChange={handleBrandChange}
+          onSeriesChange={handleSeriesChange}
+          onClear={clearFilters}
         />
       )}
       <div className="catalog__selected-filters">
-        {selectedCountries.map((item) => {
+        {tags.map((item) => {
           return (
-            <Tag
-              label={item}
-              key={item}
-              onRemove={() => {
-                handleCountryChange(item, false);
-              }}
-            />
+            <Tag label={item.label} key={item.key} onRemove={item.onRemove} />
           );
         })}
       </div>
       <section className="catalog__list">
-        {filteredIncenses.map((item) => {
-          return <IncenseCard incense={item} key={item.id}></IncenseCard>;
-        })}
+        {searchResult.length ? (
+          searchResult.map((item) => {
+            return <IncenseCard incense={item} key={item.id}></IncenseCard>;
+          })
+        ) : (
+          <p className="catalog__list-error">
+            Ничего не найдено. Попробуй изменить запрос или фильтры.
+          </p>
+        )}
       </section>
     </main>
   );
