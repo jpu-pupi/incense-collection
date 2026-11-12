@@ -2,16 +2,19 @@ import "./CatalogFiltersPanel.css";
 import { CheckboxField } from "./ui/CheckboxField";
 
 type CatalogFiltersPanelProps = {
-  countries: string[];
-  onCountryChange: (country: string, checked: boolean) => void;
-  selectedCountries: string[];
+  countries: string[],
+  brands: string[],
+  onCountryChange: (country: string, checked: boolean) => void,
+  onBrandChange: (brand:string, checked: boolean) => void,
+  selectedCountries: string[],
+  selectedBrands: string[],
   onClear: ()=>void,
 };
 export function CatalogFiltersPanel(props: CatalogFiltersPanelProps) {
   return (
     <div className="catalog-filters__panel">
       <div className="catalog-filters__header">
-        Фильтры ({props.selectedCountries.length})
+        Фильтры ({props.selectedCountries.length+props.selectedBrands.length})
         <button type="button" className="catalog-filters__clear" onClick={props.onClear}>
           Сбросить все
           <svg className="catalog-filters__icon-clear"
@@ -28,6 +31,7 @@ export function CatalogFiltersPanel(props: CatalogFiltersPanelProps) {
           </svg>
         </button>
       </div>
+      <div className="catalog-filters__fieldset-container">
       <fieldset className="catalog-filters__fieldset">
         <legend className="catalog-filters__legend">Страна</legend>
         {props.countries.map((item) => {
@@ -44,6 +48,23 @@ export function CatalogFiltersPanel(props: CatalogFiltersPanelProps) {
           );
         })}
       </fieldset>
+      <fieldset className="catalog-filters__fieldset">
+        <legend className="catalog-filters__legend">Бренд</legend>
+        {props.brands.map((item) => {
+          return (
+            <CheckboxField
+              label={item}
+              value={item}
+              key={item}
+              checked={props.selectedBrands.includes(item)}
+              onChange={(checked) => {
+                props.onBrandChange(item, checked);
+              }}
+            />
+          );
+        })}
+      </fieldset>
+      </div>
     </div>
   );
 }
