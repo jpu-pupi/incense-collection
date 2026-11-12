@@ -7,6 +7,7 @@ import MyCollectionPage from "./pages/MyCollectionPage";
 import FavouritePage from "./pages/FavouritePage";
 import FriendsPage from "./pages/FriendsPage";
 import ProfilePage from "./pages/ProfilePage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/favourite" element={<FavouritePage />}></Route>
           <Route path="/friends" element={<FriendsPage />}></Route>
           <Route path="/profile" element={<ProfilePage/>}></Route>
+          <Route path="*" element={<NotFoundPage/>}></Route>
         </Routes>
       </div>
     </>
