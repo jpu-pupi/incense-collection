@@ -16,28 +16,62 @@ export default function CatalogPage() {
   const {
     countries,
     brands,
+    series,
     selectedCountries,
     selectedBrands,
+    selectedSeries,
     handleCountryChange,
     handleBrandChange,
-    brandFilteredIncenses,
+    handleSeriesChange,
+    seriesFilteredIncenses,
     clearFilters,
   } = useCatalogFilters(incenses);
 
-  const normalizedQuery = searchQuery.trim().toLowerCase();
-  const searchResult = brandFilteredIncenses.filter((item) => {
+  function normalizedSearchText(text: string) {
+    return text.trim().toLowerCase();
+  }
+  const normalizedQuery = normalizedSearchText(searchQuery);
+
+  const searchResult = seriesFilteredIncenses.filter((item) => {
     if (!normalizedQuery) {
       return true;
     }
     return (
-      item.name.trim().toLowerCase().includes(normalizedQuery) ||
-      item.country.trim().toLowerCase().includes(normalizedQuery) ||
-      item.brand.trim().toLowerCase().includes(normalizedQuery) ||
+      normalizedSearchText(item.name).includes(normalizedQuery) ||
+      normalizedSearchText(item.country).includes(normalizedQuery) ||
+      normalizedSearchText(item.brand).includes(normalizedQuery) ||
+      (item.series&&normalizedSearchText(item.series).includes(normalizedQuery)) ||
       item.aromas.some((aroma) =>
-        aroma.trim().toLowerCase().includes(normalizedQuery),
+        normalizedSearchText(aroma).includes(normalizedQuery),
       )
     );
   });
+
+  const countryTags = selectedCountries.map((item) => {
+    return {
+      key: "country-" + item,
+      label: item,
+      onRemove: () => handleCountryChange(item, false),
+    };
+  });
+
+  const brandsTags = selectedBrands.map((item) => {
+    return {
+      key: "brand-" + item,
+      label: item,
+      onRemove: () => handleBrandChange(item, false),
+    };
+  });
+
+  const seriesTags = selectedSeries.map((item) => {
+    return {
+      key: "series-" + item,
+      label: item,
+      onRemove: () => handleSeriesChange(item, false),
+    };
+  });
+
+  const tags = [...countryTags, ...brandsTags, ...seriesTags];
 
   return (
     <main className="catalog">
@@ -53,6 +87,7 @@ export default function CatalogPage() {
         <button
           className="catalog__filters-toggle"
           type="button"
+          aria-expanded={isOpen}
           onClick={() => setIsOpen((prev) => !prev)}
         >
           <svg
@@ -87,36 +122,20 @@ export default function CatalogPage() {
         <CatalogFiltersPanel
           countries={countries}
           brands={brands}
+          series={series}
           selectedCountries={selectedCountries}
           selectedBrands={selectedBrands}
+          selectedSeries={selectedSeries}
           onCountryChange={handleCountryChange}
           onBrandChange={handleBrandChange}
-          onClear={() => {
-            clearFilters;
-          }}
+          onSeriesChange={handleSeriesChange}
+          onClear={clearFilters}
         />
       )}
       <div className="catalog__selected-filters">
-        {selectedCountries.map((item) => {
+        {tags.map((item) => {
           return (
-            <Tag
-              label={item}
-              key={item}
-              onRemove={() => {
-                handleCountryChange(item, false);
-              }}
-            />
-          );
-        })}
-        {selectedBrands.map((item) => {
-          return (
-            <Tag
-              label={item}
-              key={item}
-              onRemove={() => {
-                handleBrandChange(item, false);
-              }}
-            />
+            <Tag label={item.label} key={item.key} onRemove={item.onRemove} />
           );
         })}
       </div>
