@@ -24,15 +24,26 @@
     gap: 20px;
 }
 
+.catalog__filters-toggle[aria-expanded="true"]{
+ color: var(--bg);
+ background: #F8A0AA;
+ border: 2px solid #F8A0AA;
+}
+
+.catalog__filters-toggle:focus{
+    outline: none;
+    border: 2px solid var(--text);
+}
+
 .catalog__list{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    padding-top: 30px;
+    padding: 18px 0;
 
 }
 
-.catalog__filters_toggle {
+.catalog__filters-toggle {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -43,11 +54,17 @@
     font-size: 18px;
 }
 
-.catalog__filters_icon {
+.catalog__filters-icon {
     width: 20px;
     height: 20px;
 }
 
+.catalog__selected-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 18px 0;
+}
 
 @media (max-width: 768px) {
     .catalog__list {
