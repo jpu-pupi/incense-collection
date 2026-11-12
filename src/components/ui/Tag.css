@@ -1,0 +1,30 @@
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-accent);
+    border: 2px solid var(--border);
+    border-radius: 25px;
+    padding: 8px 16px;
+}
+
+
+
+.tag__remove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid transparent
+}
+
+.tag__remove:focus {
+    outline: none;
+    border: 2px solid var(--text);
+    border-radius: 3px;
+}
+
+.tag__icon-clear {
+    width: 11px;
+    height: 11px;
+    padding: 2px;
+}
