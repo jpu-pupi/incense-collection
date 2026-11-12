@@ -6,38 +6,26 @@ import { IncenseCard } from "../components/IncenseCard";
 import { incenses } from "../data/incenses";
 import { Tag } from "../components/ui/Tag";
 import { useState } from "react";
+import { useCatalogFilters } from "../hooks/useCatalogFilters";
 
 export default function CatalogPage() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const countriesSet = new Set<string>();
-  incenses.forEach((item) => {
-    countriesSet.add(item.country);
-  });
-  const countries = [...countriesSet];
-
-  function handleCountryChange(country: string, checked: boolean) {
-    if (checked) {
-      setSelectedCountries([...selectedCountries, country]);
-    } else {
-      setSelectedCountries(
-        selectedCountries.filter((item) => item !== country),
-      );
-    }
-  }
-
-  const filteredIncenses = incenses.filter((item) => {
-    if (selectedCountries.length === 0) {
-      return true;
-    }
-    return selectedCountries.includes(item.country);
-  });
+  const {
+    countries,
+    brands,
+    selectedCountries,
+    selectedBrands,
+    handleCountryChange,
+    handleBrandChange,
+    brandFilteredIncenses,
+    clearFilters,
+  } = useCatalogFilters(incenses);
 
   const normalizedQuery = searchQuery.trim().toLowerCase();
-  const searchResult = filteredIncenses.filter((item) => {
+  const searchResult = brandFilteredIncenses.filter((item) => {
     if (!normalizedQuery) {
       return true;
     }
@@ -98,9 +86,14 @@ export default function CatalogPage() {
       {isOpen && (
         <CatalogFiltersPanel
           countries={countries}
+          brands={brands}
           selectedCountries={selectedCountries}
+          selectedBrands={selectedBrands}
           onCountryChange={handleCountryChange}
-          onClear={() => setSelectedCountries([])}
+          onBrandChange={handleBrandChange}
+          onClear={() => {
+            clearFilters;
+          }}
         />
       )}
       <div className="catalog__selected-filters">
@@ -111,6 +104,17 @@ export default function CatalogPage() {
               key={item}
               onRemove={() => {
                 handleCountryChange(item, false);
+              }}
+            />
+          );
+        })}
+        {selectedBrands.map((item) => {
+          return (
+            <Tag
+              label={item}
+              key={item}
+              onRemove={() => {
+                handleBrandChange(item, false);
               }}
             />
           );
