@@ -4,7 +4,7 @@ import { CatalogFiltersPanel } from "../components/CatalogFiltersPanel";
 import { SearchField } from "../components/ui/SearchField";
 import { IncenseCard } from "../components/IncenseCard";
 import { incenses } from "../data/incenses";
-
+import { Tag } from "../components/ui/Tag";
 import { useState } from "react";
 
 export default function CatalogPage() {
@@ -46,13 +46,13 @@ export default function CatalogPage() {
       </section>
       <section className="catalog__filters">
         <button
-          className="catalog__filters_toggle"
+          className="catalog__filters-toggle"
           type="button"
           aria-expanded={isOpen}
           onClick={() => setIsOpen((prev) => !prev)}
         >
           <svg
-            className="catalog__filters_icon"
+            className="catalog__filters-icon"
             aria-hidden="true"
             viewBox="0 0 24 24"
             fill="none"
@@ -81,6 +81,19 @@ export default function CatalogPage() {
           onClear={() => setSelectedCountries([])}
         />
       )}
+      <div className="catalog__selected-filters">
+        {selectedCountries.map((item) => {
+          return (
+            <Tag
+              label={item}
+              key={item}
+              onRemove={() => {
+                handleCountryChange(item, false);
+              }}
+            />
+          );
+        })}
+      </div>
       <section className="catalog__list">
         {filteredIncenses.map((item) => {
           return <IncenseCard incense={item} key={item.id}></IncenseCard>;
