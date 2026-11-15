@@ -28,7 +28,7 @@ export function CatalogFiltersPanel(props: CatalogFiltersPanelProps) {
   return (
     <div className="catalog-filters__panel">
       <div className="catalog-filters__header">
-        Фильтры ({props.selectedCountries.length + props.selectedBrands.length})
+        Фильтры ({props.selectedCountries.length + props.selectedBrands.length + props.selectedSeries.length + props.selectedBaseTypes.length})
         <button
           type="button"
           className="catalog-filters__clear"
