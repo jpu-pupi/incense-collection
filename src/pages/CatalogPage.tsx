@@ -23,8 +23,12 @@ export default function CatalogPage() {
     handleCountryChange,
     handleBrandChange,
     handleSeriesChange,
-    seriesFilteredIncenses,
+    filteredIncenses,
     clearFilters,
+
+    availableCountries,
+    availableBrands,
+    availableSeries,
   } = useCatalogFilters(incenses);
 
   function normalizedSearchText(text: string) {
@@ -32,7 +36,7 @@ export default function CatalogPage() {
   }
   const normalizedQuery = normalizedSearchText(searchQuery);
 
-  const searchResult = seriesFilteredIncenses.filter((item) => {
+  const searchResult = filteredIncenses.filter((item) => {
     if (!normalizedQuery) {
       return true;
     }
@@ -130,6 +134,10 @@ export default function CatalogPage() {
           onBrandChange={handleBrandChange}
           onSeriesChange={handleSeriesChange}
           onClear={clearFilters}
+
+          availableCountries={availableCountries}
+          availableBrands={availableBrands}
+          availableSeries={availableSeries}
         />
       )}
       <div className="catalog__selected-filters">

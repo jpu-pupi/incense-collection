@@ -12,6 +12,10 @@ type CatalogFiltersPanelProps = {
   selectedBrands: string[];
   selectedSeries: string[];
   onClear: () => void;
+
+  availableCountries: string[],
+  availableBrands: string[],
+  availableSeries: string[],
 };
 export function CatalogFiltersPanel(props: CatalogFiltersPanelProps) {
   return (
@@ -48,6 +52,7 @@ export function CatalogFiltersPanel(props: CatalogFiltersPanelProps) {
                 label={item}
                 value={item}
                 key={item}
+                disabled={(!props.availableCountries.includes(item))&&(!props.selectedCountries.includes(item))}
                 checked={props.selectedCountries.includes(item)}
                 onChange={(checked) => {
                   props.onCountryChange(item, checked);
@@ -64,6 +69,7 @@ export function CatalogFiltersPanel(props: CatalogFiltersPanelProps) {
                 label={item}
                 value={item}
                 key={item}
+                disabled={(!props.availableBrands.includes(item))&&(!props.selectedBrands.includes(item))}
                 checked={props.selectedBrands.includes(item)}
                 onChange={(checked) => {
                   props.onBrandChange(item, checked);
@@ -80,6 +86,7 @@ export function CatalogFiltersPanel(props: CatalogFiltersPanelProps) {
                 label={item}
                 value={item}
                 key={item}
+                disabled={(!props.availableSeries.includes(item))&&(!props.selectedSeries.includes(item))}
                 checked={props.selectedSeries.includes(item)}
                 onChange={(checked) => {
                   props.onSeriesChange(item, checked);
