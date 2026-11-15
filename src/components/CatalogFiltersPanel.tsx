@@ -1,6 +1,7 @@
 import "./CatalogFiltersPanel.css";
 import { CheckboxField } from "./ui/CheckboxField";
 import type { Incense } from "../types/incense";
+import { baseTypeLabels } from "../constants/incenseLables";
 
 type CatalogFiltersPanelProps = {
   countries: string[],
@@ -22,11 +23,6 @@ type CatalogFiltersPanelProps = {
   availableSeries: string[],
   availableBaseTypes: Incense["baseType"][],
 };
-
-const baseTypeLabels = {
-  core: "Основные",
-  coreless: "Безосновные",
-}
 
 export function CatalogFiltersPanel(props: CatalogFiltersPanelProps) {
   return (

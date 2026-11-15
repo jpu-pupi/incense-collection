@@ -7,6 +7,7 @@ import { incenses } from "../data/incenses";
 import { Tag } from "../components/ui/Tag";
 import { useState } from "react";
 import { useCatalogFilters } from "../hooks/useCatalogFilters";
+import { baseTypeLabels } from "../constants/incenseLables";
 
 export default function CatalogPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -78,7 +79,15 @@ export default function CatalogPage() {
     };
   });
 
-  const tags = [...countryTags, ...brandsTags, ...seriesTags];
+  const baseTypeTags = selectedBaseTypes.map((item) => {
+    return {
+      key: "baseType-" + item,
+      label: baseTypeLabels[item],
+      onRemove: () => handleBaseTypeChange(item, false),
+    };
+  })
+
+  const tags = [...countryTags, ...brandsTags, ...seriesTags, ...baseTypeTags];
 
   return (
     <main className="catalog">
