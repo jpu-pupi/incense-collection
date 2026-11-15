@@ -1,9 +1,4 @@
-type BaseType = 'core'|'coreless';
-type IncenseType = 'coal'|'masala'|'tibetan'|'other';
-type Form = 'stick'|'cone'|'briquette'|'other';
-
-
- type IncenseBase = {
+type IncenseBase = {
    id: string,
    name: string,
    brand: string,
