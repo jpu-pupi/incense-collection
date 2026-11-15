@@ -1,22 +1,33 @@
 import "./CatalogFiltersPanel.css";
 import { CheckboxField } from "./ui/CheckboxField";
+import type { Incense } from "../types/incense";
 
 type CatalogFiltersPanelProps = {
-  countries: string[];
-  brands: string[];
-  series: string[];
-  onCountryChange: (country: string, checked: boolean) => void;
-  onBrandChange: (brand: string, checked: boolean) => void;
-  onSeriesChange: (series: string, checked: boolean) => void;
-  selectedCountries: string[];
-  selectedBrands: string[];
-  selectedSeries: string[];
+  countries: string[],
+  brands: string[],
+  series: string[],
+  baseTypes: Incense["baseType"][],
+  onCountryChange: (country: string, checked: boolean) => void,
+  onBrandChange: (brand: string, checked: boolean) => void,
+  onSeriesChange: (series: string, checked: boolean) => void,
+  onBaseTypeChange:(baseType: Incense["baseType"], checked: boolean) => void,
+  selectedCountries: string[],
+  selectedBrands: string[],
+  selectedSeries: string[],
+  selectedBaseTypes: Incense["baseType"][],
   onClear: () => void;
 
   availableCountries: string[],
   availableBrands: string[],
   availableSeries: string[],
+  availableBaseTypes: Incense["baseType"][],
 };
+
+const baseTypeLabels = {
+  core: "Основные",
+  coreless: "Безосновные",
+}
+
 export function CatalogFiltersPanel(props: CatalogFiltersPanelProps) {
   return (
     <div className="catalog-filters__panel">
@@ -90,6 +101,23 @@ export function CatalogFiltersPanel(props: CatalogFiltersPanelProps) {
                 checked={props.selectedSeries.includes(item)}
                 onChange={(checked) => {
                   props.onSeriesChange(item, checked);
+                }}
+              />
+            );
+          })}
+        </fieldset>
+        <fieldset className="catalog-filters__fieldset">
+          <legend className="catalog-filters__legend">Основа</legend>
+          {props.baseTypes.map((item) => {
+            return (
+              <CheckboxField
+                label={baseTypeLabels[item]}
+                value={item}
+                key={item}
+                disabled={(!props.availableBaseTypes.includes(item))&&(!props.selectedBaseTypes.includes(item))}
+                checked={props.selectedBaseTypes.includes(item)}
+                onChange={(checked) => {
+                  props.onBaseTypeChange(item, checked);
                 }}
               />
             );

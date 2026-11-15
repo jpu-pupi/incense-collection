@@ -17,18 +17,21 @@ export default function CatalogPage() {
     countries,
     brands,
     series,
+    baseTypes,
     selectedCountries,
     selectedBrands,
     selectedSeries,
+    selectedBaseTypes,
     handleCountryChange,
     handleBrandChange,
     handleSeriesChange,
+    handleBaseTypeChange,
     filteredIncenses,
     clearFilters,
-
     availableCountries,
     availableBrands,
     availableSeries,
+    availableBaseTypes,
   } = useCatalogFilters(incenses);
 
   function normalizedSearchText(text: string) {
@@ -127,17 +130,20 @@ export default function CatalogPage() {
           countries={countries}
           brands={brands}
           series={series}
+          baseTypes={baseTypes}
           selectedCountries={selectedCountries}
           selectedBrands={selectedBrands}
           selectedSeries={selectedSeries}
+          selectedBaseTypes={selectedBaseTypes}
           onCountryChange={handleCountryChange}
           onBrandChange={handleBrandChange}
           onSeriesChange={handleSeriesChange}
+          onBaseTypeChange={handleBaseTypeChange}
           onClear={clearFilters}
-
           availableCountries={availableCountries}
           availableBrands={availableBrands}
           availableSeries={availableSeries}
+          availableBaseTypes={availableBaseTypes}
         />
       )}
       <div className="catalog__selected-filters">
