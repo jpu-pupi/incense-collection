@@ -13,6 +13,7 @@ export function useCatalogFilters(incenses: Incense[]) {
   const [selectedBaseTypes, setSelectedBaseTypes] = useState<Incense["baseType"][]>([]);
   const [selectedIncenseTypes, setSelectedIncenseTypes] = useState<Incense["incenseType"][]>([]);
   const [selectedForms, setSelectedForms] = useState<Incense["form"][]>([]);
+  const [selectedAromas, setSelectedAromas] = useState<string[]>([]);
 
   const countries = getUniqueValues(incenses.map((item) => item.country));
   const brands = getUniqueValues(incenses.map((item) => item.brand));
@@ -26,10 +27,11 @@ export function useCatalogFilters(incenses: Incense[]) {
   const baseTypes = getUniqueValues(incenses.map((item)=>item.baseType));
   const incenseTypes = getUniqueValues(incenses.map((item)=>item.incenseType));
   const forms = getUniqueValues(incenses.map((item)=>item.form));
+  const aromas = getUniqueValues(incenses.flatMap((item)=>item.aromas));
 
   function matchesFilters(
     incense: Incense,
-    ignoredGroup?: "country" | "brand" | "series"| "baseType"|"incenseType"|"form",
+    ignoredGroup?: "country" | "brand" | "series"| "baseType"|"incenseType"|"form"|"aromas",
   ): boolean {
     const matchesCountry =
       ignoredGroup === "country" ||
@@ -55,7 +57,11 @@ export function useCatalogFilters(incenses: Incense[]) {
       ignoredGroup === "form" ||
       selectedForms.length === 0 ||
       selectedForms.includes(incense.form);
-    return matchesCountry && matchesBrand && matchesSeries&&matchesBaseType&&matchesIncenseType&&matchesForm;
+    const matchesAromas = 
+      ignoredGroup === "aromas" ||
+      selectedAromas.length === 0 ||
+      incense.aromas.some((aroma)=>selectedAromas.includes(aroma));
+    return matchesCountry && matchesBrand && matchesSeries&&matchesBaseType&&matchesIncenseType&&matchesForm&&matchesAromas;
   }
 
   const incensesForCountries = incenses.filter((item) =>
@@ -94,6 +100,10 @@ export function useCatalogFilters(incenses: Incense[]) {
   const incensesForForms = incenses.filter((item)=>matchesFilters(item, "form"));
 
   const availableForms =getUniqueValues(incensesForForms.map((item)=>item.form));
+
+  const incensesForAromas = incenses.filter((item)=>matchesFilters(item, "aromas"));
+
+  const availableAromas =getUniqueValues(incensesForAromas.flatMap((item)=>item.aromas));
 
   function handleCountryChange(country: string, checked: boolean) {
     const nextCountries = checked
@@ -137,7 +147,14 @@ export function useCatalogFilters(incenses: Incense[]) {
       : selectedForms.filter((item)=>item !== form);
     setSelectedForms(nextForms);
   }
-  
+
+  function handleAromaChange(aroma: string, checked:boolean) {
+    const nextAromas= checked
+      ? [...selectedAromas, aroma]
+      : selectedAromas.filter((item)=>item !== aroma);
+    setSelectedAromas(nextAromas);
+  }
+
   const filteredIncenses = incenses.filter((item) => matchesFilters(item));
 
   function clearFilters() {
@@ -147,6 +164,7 @@ export function useCatalogFilters(incenses: Incense[]) {
     setSelectedBaseTypes([]);
     setSelectedIncenseTypes([]);
     setSelectedForms([]);
+    setSelectedAromas([]);
   }
 
   return {
@@ -156,18 +174,21 @@ export function useCatalogFilters(incenses: Incense[]) {
     baseTypes,
     incenseTypes,
     forms,
+    aromas,
     selectedCountries,
     selectedBrands,
     selectedSeries,
     selectedBaseTypes,
     selectedIncenseTypes,
     selectedForms,
+    selectedAromas,
     handleCountryChange,
     handleBrandChange,
     handleSeriesChange,
     handleBaseTypeChange,
     handleIncenseTypeChange,
     handleFormChange,
+    handleAromaChange,
     filteredIncenses,
     clearFilters,
     availableCountries,
@@ -176,5 +197,6 @@ export function useCatalogFilters(incenses: Incense[]) {
     availableBaseTypes,
     availableIncenseTypes,
     availableForms,
+    availableAromas,
   };
 }

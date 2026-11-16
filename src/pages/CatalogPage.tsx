@@ -21,18 +21,21 @@ export default function CatalogPage() {
     baseTypes,
     incenseTypes,
     forms,
+    aromas,
     selectedCountries,
     selectedBrands,
     selectedSeries,
     selectedBaseTypes,
     selectedIncenseTypes,
     selectedForms,
+    selectedAromas,
     handleCountryChange,
     handleBrandChange,
     handleSeriesChange,
     handleBaseTypeChange,
     handleIncenseTypeChange,
     handleFormChange,
+    handleAromaChange,
     filteredIncenses,
     clearFilters,
     availableCountries,
@@ -41,6 +44,7 @@ export default function CatalogPage() {
     availableBaseTypes,
     availableIncenseTypes,
     availableForms,
+    availableAromas,
   } = useCatalogFilters(incenses);
 
   function normalizedSearchText(text: string) {
@@ -111,7 +115,15 @@ export default function CatalogPage() {
     };
   });
 
-  const tags = [...countryTags, ...brandsTags, ...seriesTags, ...baseTypeTags, ...incenseTypeTags, ...formTags];
+  const aromaTags = selectedAromas.map((item) => {
+    return {
+      key: "aroma-" + item,
+      label: item,
+      onRemove: () => handleAromaChange(item, false),
+    };
+  });
+
+  const tags = [...countryTags, ...brandsTags, ...seriesTags, ...baseTypeTags, ...incenseTypeTags, ...formTags, ...aromaTags];
 
   return (
     <main className="catalog">
@@ -166,18 +178,21 @@ export default function CatalogPage() {
           baseTypes={baseTypes}
           incenseTypes={incenseTypes}
           forms={forms}
+          aromas={aromas}
           selectedCountries={selectedCountries}
           selectedBrands={selectedBrands}
           selectedSeries={selectedSeries}
           selectedBaseTypes={selectedBaseTypes}
           selectedIncenseTypes={selectedIncenseTypes}
           selectedForms={selectedForms}
+          selectedAromas={selectedAromas}
           onCountryChange={handleCountryChange}
           onBrandChange={handleBrandChange}
           onSeriesChange={handleSeriesChange}
           onBaseTypeChange={handleBaseTypeChange}
           onIncenseTypeChange={handleIncenseTypeChange}
           onFormChange={handleFormChange}
+          onAromaChange={handleAromaChange}
           onClear={clearFilters}
           availableCountries={availableCountries}
           availableBrands={availableBrands}
@@ -185,6 +200,7 @@ export default function CatalogPage() {
           availableBaseTypes={availableBaseTypes}
           availableIncenseTypes={availableIncenseTypes}
           availableForms={availableForms}
+          availadelAromas={availableAromas}
         />
       )}
       <div className="catalog__selected-filters">
