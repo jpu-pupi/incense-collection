@@ -7,7 +7,7 @@ import { incenses } from "../data/incenses";
 import { Tag } from "../components/ui/Tag";
 import { useState } from "react";
 import { useCatalogFilters } from "../hooks/useCatalogFilters";
-import { baseTypeLabels, incenseTypeLabels } from "../constants/incenseLables";
+import { baseTypeLabels, incenseTypeLabels, formsLabels } from "../constants/incenseLables";
 
 export default function CatalogPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,16 +20,19 @@ export default function CatalogPage() {
     series,
     baseTypes,
     incenseTypes,
+    forms,
     selectedCountries,
     selectedBrands,
     selectedSeries,
     selectedBaseTypes,
     selectedIncenseTypes,
+    selectedForms,
     handleCountryChange,
     handleBrandChange,
     handleSeriesChange,
     handleBaseTypeChange,
     handleIncenseTypeChange,
+    handleFormChange,
     filteredIncenses,
     clearFilters,
     availableCountries,
@@ -37,6 +40,7 @@ export default function CatalogPage() {
     availableSeries,
     availableBaseTypes,
     availableIncenseTypes,
+    availableForms,
   } = useCatalogFilters(incenses);
 
   function normalizedSearchText(text: string) {
@@ -99,7 +103,15 @@ export default function CatalogPage() {
     };
   });
 
-  const tags = [...countryTags, ...brandsTags, ...seriesTags, ...baseTypeTags, ...incenseTypeTags];
+  const formTags = selectedForms.map((item) => {
+    return {
+      key: "form-" + item,
+      label: formsLabels[item],
+      onRemove: () => handleFormChange(item, false),
+    };
+  });
+
+  const tags = [...countryTags, ...brandsTags, ...seriesTags, ...baseTypeTags, ...incenseTypeTags, ...formTags];
 
   return (
     <main className="catalog">
@@ -153,22 +165,26 @@ export default function CatalogPage() {
           series={series}
           baseTypes={baseTypes}
           incenseTypes={incenseTypes}
+          forms={forms}
           selectedCountries={selectedCountries}
           selectedBrands={selectedBrands}
           selectedSeries={selectedSeries}
           selectedBaseTypes={selectedBaseTypes}
           selectedIncenseTypes={selectedIncenseTypes}
+          selectedForms={selectedForms}
           onCountryChange={handleCountryChange}
           onBrandChange={handleBrandChange}
           onSeriesChange={handleSeriesChange}
           onBaseTypeChange={handleBaseTypeChange}
           onIncenseTypeChange={handleIncenseTypeChange}
+          onFormChange={handleFormChange}
           onClear={clearFilters}
           availableCountries={availableCountries}
           availableBrands={availableBrands}
           availableSeries={availableSeries}
           availableBaseTypes={availableBaseTypes}
           availableIncenseTypes={availableIncenseTypes}
+          availableForms={availableForms}
         />
       )}
       <div className="catalog__selected-filters">

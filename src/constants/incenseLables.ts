@@ -10,3 +10,11 @@ export const incenseTypeLabels = {
     other: "Другие",
 
 }
+
+export const formsLabels = {
+  stick: "Палочка",
+  cone: "Конус",
+  briquette: "Брикетик",
+  other: "Другое",
+}
+

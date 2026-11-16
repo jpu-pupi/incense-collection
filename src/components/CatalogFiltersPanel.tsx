@@ -1,7 +1,7 @@
 import "./CatalogFiltersPanel.css";
 import { CheckboxField } from "./ui/CheckboxField";
 import type { Incense } from "../types/incense";
-import { baseTypeLabels, incenseTypeLabels } from "../constants/incenseLables";
+import { baseTypeLabels, formsLabels, incenseTypeLabels } from "../constants/incenseLables";
 
 type CatalogFiltersPanelProps = {
   countries: string[],
@@ -9,16 +9,19 @@ type CatalogFiltersPanelProps = {
   series: string[],
   baseTypes: Incense["baseType"][],
   incenseTypes: Incense["incenseType"][],
+  forms: Incense["form"][],
   onCountryChange: (country: string, checked: boolean) => void,
   onBrandChange: (brand: string, checked: boolean) => void,
   onSeriesChange: (series: string, checked: boolean) => void,
   onBaseTypeChange:(baseType: Incense["baseType"], checked: boolean) => void,
   onIncenseTypeChange:(baseType: Incense["incenseType"], checked: boolean) => void,
+  onFormChange:(form: Incense["form"], checked: boolean) => void,
   selectedCountries: string[],
   selectedBrands: string[],
   selectedSeries: string[],
   selectedBaseTypes: Incense["baseType"][],
   selectedIncenseTypes: Incense["incenseType"][],
+  selectedForms: Incense["form"][],
   onClear: () => void;
 
   availableCountries: string[],
@@ -26,14 +29,14 @@ type CatalogFiltersPanelProps = {
   availableSeries: string[],
   availableBaseTypes: Incense["baseType"][],
   availableIncenseTypes: Incense["incenseType"][],
-
+  availableForms: Incense["form"][],
 };
 
 export function CatalogFiltersPanel(props: CatalogFiltersPanelProps) {
   return (
     <div className="catalog-filters__panel">
       <div className="catalog-filters__header">
-        Фильтры ({props.selectedCountries.length + props.selectedBrands.length + props.selectedSeries.length + props.selectedBaseTypes.length + props.selectedIncenseTypes.length})
+        Фильтры ({props.selectedCountries.length + props.selectedBrands.length + props.selectedSeries.length + props.selectedBaseTypes.length + props.selectedIncenseTypes.length+props.selectedForms.length})
         <button
           type="button"
           className="catalog-filters__clear"
@@ -136,6 +139,23 @@ export function CatalogFiltersPanel(props: CatalogFiltersPanelProps) {
                 checked={props.selectedIncenseTypes.includes(item)}
                 onChange={(checked) => {
                   props.onIncenseTypeChange(item, checked);
+                }}
+              />
+            );
+          })}
+        </fieldset>
+        <fieldset className="catalog-filters__fieldset">
+          <legend className="catalog-filters__legend">Форма</legend>
+          {props.forms.map((item) => {
+            return (
+              <CheckboxField
+                label={formsLabels[item]}
+                value={item}
+                key={item}
+                disabled={(!props.availableForms.includes(item))&&(!props.selectedForms.includes(item))}
+                checked={props.selectedForms.includes(item)}
+                onChange={(checked) => {
+                  props.onFormChange(item, checked);
                 }}
               />
             );
