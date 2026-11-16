@@ -1,34 +1,39 @@
 import "./CatalogFiltersPanel.css";
 import { CheckboxField } from "./ui/CheckboxField";
 import type { Incense } from "../types/incense";
-import { baseTypeLabels } from "../constants/incenseLables";
+import { baseTypeLabels, incenseTypeLabels } from "../constants/incenseLables";
 
 type CatalogFiltersPanelProps = {
   countries: string[],
   brands: string[],
   series: string[],
   baseTypes: Incense["baseType"][],
+  incenseTypes: Incense["incenseType"][],
   onCountryChange: (country: string, checked: boolean) => void,
   onBrandChange: (brand: string, checked: boolean) => void,
   onSeriesChange: (series: string, checked: boolean) => void,
   onBaseTypeChange:(baseType: Incense["baseType"], checked: boolean) => void,
+  onIncenseTypeChange:(baseType: Incense["incenseType"], checked: boolean) => void,
   selectedCountries: string[],
   selectedBrands: string[],
   selectedSeries: string[],
   selectedBaseTypes: Incense["baseType"][],
+  selectedIncenseTypes: Incense["incenseType"][],
   onClear: () => void;
 
   availableCountries: string[],
   availableBrands: string[],
   availableSeries: string[],
   availableBaseTypes: Incense["baseType"][],
+  availableIncenseTypes: Incense["incenseType"][],
+
 };
 
 export function CatalogFiltersPanel(props: CatalogFiltersPanelProps) {
   return (
     <div className="catalog-filters__panel">
       <div className="catalog-filters__header">
-        Фильтры ({props.selectedCountries.length + props.selectedBrands.length + props.selectedSeries.length + props.selectedBaseTypes.length})
+        Фильтры ({props.selectedCountries.length + props.selectedBrands.length + props.selectedSeries.length + props.selectedBaseTypes.length + props.selectedIncenseTypes.length})
         <button
           type="button"
           className="catalog-filters__clear"
@@ -114,6 +119,23 @@ export function CatalogFiltersPanel(props: CatalogFiltersPanelProps) {
                 checked={props.selectedBaseTypes.includes(item)}
                 onChange={(checked) => {
                   props.onBaseTypeChange(item, checked);
+                }}
+              />
+            );
+          })}
+        </fieldset>
+        <fieldset className="catalog-filters__fieldset">
+          <legend className="catalog-filters__legend">Тип</legend>
+          {props.incenseTypes.map((item) => {
+            return (
+              <CheckboxField
+                label={incenseTypeLabels[item]}
+                value={item}
+                key={item}
+                disabled={(!props.availableIncenseTypes.includes(item))&&(!props.selectedIncenseTypes.includes(item))}
+                checked={props.selectedIncenseTypes.includes(item)}
+                onChange={(checked) => {
+                  props.onIncenseTypeChange(item, checked);
                 }}
               />
             );
