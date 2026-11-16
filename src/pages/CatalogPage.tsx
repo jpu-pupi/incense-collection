@@ -7,6 +7,7 @@ import { incenses } from "../data/incenses";
 import { Tag } from "../components/ui/Tag";
 import { useState } from "react";
 import { useCatalogFilters } from "../hooks/useCatalogFilters";
+import { baseTypeLabels, incenseTypeLabels, formsLabels } from "../constants/incenseLables";
 
 export default function CatalogPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,14 +18,33 @@ export default function CatalogPage() {
     countries,
     brands,
     series,
+    baseTypes,
+    incenseTypes,
+    forms,
+    aromas,
     selectedCountries,
     selectedBrands,
     selectedSeries,
+    selectedBaseTypes,
+    selectedIncenseTypes,
+    selectedForms,
+    selectedAromas,
     handleCountryChange,
     handleBrandChange,
     handleSeriesChange,
-    seriesFilteredIncenses,
+    handleBaseTypeChange,
+    handleIncenseTypeChange,
+    handleFormChange,
+    handleAromaChange,
+    filteredIncenses,
     clearFilters,
+    availableCountries,
+    availableBrands,
+    availableSeries,
+    availableBaseTypes,
+    availableIncenseTypes,
+    availableForms,
+    availableAromas,
   } = useCatalogFilters(incenses);
 
   function normalizedSearchText(text: string) {
@@ -32,7 +52,7 @@ export default function CatalogPage() {
   }
   const normalizedQuery = normalizedSearchText(searchQuery);
 
-  const searchResult = seriesFilteredIncenses.filter((item) => {
+  const searchResult = filteredIncenses.filter((item) => {
     if (!normalizedQuery) {
       return true;
     }
@@ -71,7 +91,39 @@ export default function CatalogPage() {
     };
   });
 
-  const tags = [...countryTags, ...brandsTags, ...seriesTags];
+  const baseTypeTags = selectedBaseTypes.map((item) => {
+    return {
+      key: "baseType-" + item,
+      label: baseTypeLabels[item],
+      onRemove: () => handleBaseTypeChange(item, false),
+    };
+  });
+
+  const incenseTypeTags = selectedIncenseTypes.map((item) => {
+    return {
+      key: "incenseType-" + item,
+      label: incenseTypeLabels[item],
+      onRemove: () => handleIncenseTypeChange(item, false),
+    };
+  });
+
+  const formTags = selectedForms.map((item) => {
+    return {
+      key: "form-" + item,
+      label: formsLabels[item],
+      onRemove: () => handleFormChange(item, false),
+    };
+  });
+
+  const aromaTags = selectedAromas.map((item) => {
+    return {
+      key: "aroma-" + item,
+      label: item,
+      onRemove: () => handleAromaChange(item, false),
+    };
+  });
+
+  const tags = [...countryTags, ...brandsTags, ...seriesTags, ...baseTypeTags, ...incenseTypeTags, ...formTags, ...aromaTags];
 
   return (
     <main className="catalog">
@@ -123,13 +175,32 @@ export default function CatalogPage() {
           countries={countries}
           brands={brands}
           series={series}
+          baseTypes={baseTypes}
+          incenseTypes={incenseTypes}
+          forms={forms}
+          aromas={aromas}
           selectedCountries={selectedCountries}
           selectedBrands={selectedBrands}
           selectedSeries={selectedSeries}
+          selectedBaseTypes={selectedBaseTypes}
+          selectedIncenseTypes={selectedIncenseTypes}
+          selectedForms={selectedForms}
+          selectedAromas={selectedAromas}
           onCountryChange={handleCountryChange}
           onBrandChange={handleBrandChange}
           onSeriesChange={handleSeriesChange}
+          onBaseTypeChange={handleBaseTypeChange}
+          onIncenseTypeChange={handleIncenseTypeChange}
+          onFormChange={handleFormChange}
+          onAromaChange={handleAromaChange}
           onClear={clearFilters}
+          availableCountries={availableCountries}
+          availableBrands={availableBrands}
+          availableSeries={availableSeries}
+          availableBaseTypes={availableBaseTypes}
+          availableIncenseTypes={availableIncenseTypes}
+          availableForms={availableForms}
+          availadelAromas={availableAromas}
         />
       )}
       <div className="catalog__selected-filters">

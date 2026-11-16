@@ -5,14 +5,16 @@ type CheckboxFieldProps = {
     value: string,
     checked: boolean,
     onChange: (checked:boolean) => void,
+    disabled?:boolean,
 }
 
 export function CheckboxField(props:CheckboxFieldProps) {
   return (
-    <label className="checkbox-field">
+    <label className={props.disabled?"checkbox-field checkbox-field_disabled":"checkbox-field"}>
       <input className="checkbox-field__input" type="checkbox" 
       value={props.value}
       checked={props.checked}
+      disabled={props.disabled}
       onChange={(event)=>{props.onChange(event.currentTarget.checked)}}
       />
       <span className="checkbox-field__control">

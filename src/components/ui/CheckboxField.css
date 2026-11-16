@@ -41,3 +41,7 @@
     height: 100%;
     color: var(--border);
 }
+
+.checkbox-field_disabled {
+    display: none;
+}
