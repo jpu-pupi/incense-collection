@@ -9,10 +9,16 @@ import { useState } from "react";
 import { useCatalogFilters } from "../hooks/useCatalogFilters";
 import { baseTypeLabels, incenseTypeLabels, formsLabels } from "../constants/incenseLables";
 
-export default function CatalogPage() {
+type CatalogPageProp = {
+  favoriteIds: string[];
+  onFavoriteToggle: (id:string) => void;
+}
+
+export default function CatalogPage(props: CatalogPageProp) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  
 
   const {
     countries,
@@ -213,7 +219,14 @@ export default function CatalogPage() {
       <section className="catalog__list">
         {searchResult.length ? (
           searchResult.map((item) => {
-            return <IncenseCard incense={item} key={item.id}></IncenseCard>;
+            return (
+              <IncenseCard
+                incense={item}
+                key={item.id}
+                isFavorite={props.favoriteIds.includes(item.id)}
+                onFavoriteToggle={()=>props.onFavoriteToggle(item.id)}
+              ></IncenseCard>
+            );
           })
         ) : (
           <p className="catalog__list-error">

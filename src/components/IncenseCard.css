@@ -21,6 +21,16 @@
     width: 150px;
     height: 150px;
 }
+.incense-card__favourite[aria-pressed="true"] path{
+    fill: currentColor;
+}
+
+.incense-card__favourite-icon {
+width: 20px;
+height: 16px;
+color: #E50127;
+}
+
 .incense-card__title {
     font-family: var(--sans);
     font-weight: 500;
