@@ -13,7 +13,7 @@ export const incenses:Incense[] = [
       incenseType: 'coal',
       form: 'stick',
       photo: incensePhoto,
-      aromas:['олибанум', 'копал', 'можжевельник','березовый уголь'],
+      aromas:['олибанум', 'копал','березовый уголь'],
     },
 
     { id: '0002',
